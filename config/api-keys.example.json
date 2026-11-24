@@ -1,0 +1,12 @@
+{
+  "REST_COUNTRIES_KEY": "",
+  "DOG_API_KEY": "",
+  "CAT_API_KEY": "live_yhY0Ao8a2usODQNbye7xohTKkN4PyWGVWGMyTbZDEmMFvBDhERH6J5xF9d3d5MPU",
+  "OVERPASS_ENDPOINT": "https://overpass-api.de/api/interpreter",
+  "NOMINATIM_ENDPOINT": "https://nominatim.openstreetmap.org/reverse",
+  "EMAILJS_SERVICE_ID": "",
+  "EMAILJS_TEMPLATE_ID": "",
+  "EMAILJS_PUBLIC_KEY": "",
+  "EMAILJS_PRIVATE_KEY": "",
+  "MEMBER_CARD_BASE_URL": ""
+}

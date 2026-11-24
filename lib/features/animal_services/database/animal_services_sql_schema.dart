@@ -1,0 +1,180 @@
+import '../../../core/database/sql_module.dart';
+
+class ServicesSqlSchema {
+  static const tables = <SqlTable>[
+    SqlTable(
+      name: 'veterinarian_availabilities',
+      collection: 'availability',
+      createSql: '''CREATE TABLE veterinarian_availabilities (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"veterinarianUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"date" TEXT NOT NULL,
+"startTime" INTEGER NOT NULL,
+"endTime" INTEGER NOT NULL,
+"isFree" INTEGER NOT NULL CHECK("isFree" IN (0,1)),
+CHECK(startTime>=0 AND startTime<endTime AND endTime<=1440)
+)''',
+      primaryKey: ["id"],
+      booleans: ["isFree"],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'veterinary_appointments',
+      collection: 'appointments',
+      optionalReferences: {'availabilityLinkId': 'availabilityId'},
+      createSql: '''CREATE TABLE veterinary_appointments (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"veterinarianUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"clientUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"animalId" INTEGER NOT NULL REFERENCES animals(id) ON DELETE RESTRICT,
+"availabilityId" INTEGER NOT NULL,
+"appointmentDate" TEXT NOT NULL,
+"reason" TEXT NOT NULL,
+"status" TEXT NOT NULL CHECK("status" IN ('PENDING','CONFIRMED','REJECTED','CANCELLED','COMPLETED')),
+"notes" TEXT,
+"clientName" TEXT NOT NULL,
+"veterinarianName" TEXT NOT NULL,
+"animalName" TEXT NOT NULL,
+availabilityLinkId INTEGER REFERENCES veterinarian_availabilities(id) ON DELETE SET NULL,
+CHECK(availabilityLinkId IS NOT NULL OR status IN ('CANCELLED','REJECTED'))
+)''',
+      primaryKey: ["id"],
+      booleans: [],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'vaccinations',
+      collection: 'vaccinations',
+      createSql: '''CREATE TABLE vaccinations (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"animalId" INTEGER NOT NULL REFERENCES animals(id) ON DELETE RESTRICT,
+"veterinarianUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"vaccineName" TEXT NOT NULL,
+"vaccinationDate" TEXT NOT NULL,
+"nextDoseDate" TEXT,
+"notes" TEXT,
+"veterinarianName" TEXT NOT NULL
+)''',
+      primaryKey: ["id"],
+      booleans: [],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'animal_care',
+      collection: 'care',
+      createSql: '''CREATE TABLE animal_care (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"animalId" INTEGER NOT NULL REFERENCES animals(id) ON DELETE RESTRICT,
+"veterinarianUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"type" TEXT NOT NULL,
+"date" TEXT NOT NULL,
+"description" TEXT NOT NULL,
+"cost" REAL,
+"veterinarianName" TEXT NOT NULL,
+CHECK(cost IS NULL OR cost>=0)
+)''',
+      primaryKey: ["id"],
+      booleans: [],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'health_reminders',
+      collection: 'reminders',
+      createSql: '''CREATE TABLE health_reminders (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"animalId" INTEGER NOT NULL REFERENCES animals(id) ON DELETE RESTRICT,
+"type" TEXT NOT NULL,
+"scheduledDate" TEXT NOT NULL,
+"isSent" INTEGER NOT NULL CHECK("isSent" IN (0,1)),
+"vaccinationId" INTEGER REFERENCES vaccinations(id) ON DELETE RESTRICT,
+"authorUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT
+)''',
+      primaryKey: ["id"],
+      booleans: ["isSent"],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'pet_sitter_settings',
+      collection: 'settings',
+      createSql: '''CREATE TABLE pet_sitter_settings (
+"userId" TEXT PRIMARY KEY NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"available" INTEGER NOT NULL CHECK("available" IN (0,1)),
+"dailyRate" REAL NOT NULL,
+"availableFrom" TEXT NOT NULL,
+"availableUntil" TEXT NOT NULL,
+CHECK(dailyRate>=0),
+CHECK(julianday(availableUntil)>=julianday(availableFrom))
+)''',
+      primaryKey: ["userId"],
+      booleans: ["available"],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'pet_sitting_requests',
+      collection: 'requests',
+      createSql: '''CREATE TABLE pet_sitting_requests (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"ownerUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"petSitterUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"animalId" INTEGER NOT NULL REFERENCES animals(id) ON DELETE RESTRICT,
+"startDate" TEXT NOT NULL,
+"endDate" TEXT NOT NULL,
+"status" TEXT NOT NULL CHECK("status" IN ('PENDING','ACCEPTED','REJECTED','CANCELLED','IN_PROGRESS','COMPLETED')),
+"totalPrice" REAL NOT NULL,
+"createdAt" TEXT NOT NULL,
+"instructions" TEXT NOT NULL,
+"ownerName" TEXT NOT NULL,
+"petSitterName" TEXT NOT NULL,
+"animalName" TEXT NOT NULL,
+CHECK(julianday(endDate)>julianday(startDate)),
+CHECK(totalPrice>=0)
+)''',
+      primaryKey: ["id"],
+      booleans: [],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'pet_sitting_updates',
+      collection: 'updates',
+      createSql: '''CREATE TABLE pet_sitting_updates (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"petSittingRequestId" INTEGER NOT NULL REFERENCES pet_sitting_requests(id) ON DELETE RESTRICT,
+"message" TEXT NOT NULL,
+"photo" TEXT,
+"createdAt" TEXT NOT NULL
+)''',
+      primaryKey: ["id"],
+      booleans: [],
+      jsonFields: [],
+    ),
+    SqlTable(
+      name: 'reviews',
+      collection: 'reviews',
+      createSql: '''CREATE TABLE reviews (
+"id" INTEGER PRIMARY KEY NOT NULL CHECK(id>0),
+"petSittingRequestId" INTEGER NOT NULL REFERENCES pet_sitting_requests(id) ON DELETE RESTRICT,
+"reviewerUserId" TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+"rating" INTEGER NOT NULL,
+"comment" TEXT NOT NULL,
+"createdAt" TEXT NOT NULL,
+UNIQUE(petSittingRequestId),
+CHECK(rating BETWEEN 1 AND 5)
+)''',
+      primaryKey: ["id"],
+      booleans: [],
+      jsonFields: [],
+    ),
+  ];
+  static const extra = <String>[
+    "CREATE UNIQUE INDEX idx_held_appointment ON veterinary_appointments(availabilityId) WHERE status IN ('PENDING','CONFIRMED','COMPLETED')",
+    "CREATE INDEX idx_appointments_client ON veterinary_appointments(clientUserId,appointmentDate)",
+    "CREATE INDEX idx_health_animal ON vaccinations(animalId,vaccinationDate)",
+    "CREATE INDEX idx_requests_owner ON pet_sitting_requests(ownerUserId,status)",
+    "CREATE TRIGGER slots_overlap_INSERT BEFORE INSERT ON veterinarian_availabilities WHEN EXISTS(SELECT 1 FROM veterinarian_availabilities a WHERE a.id<>NEW.id AND a.veterinarianUserId=NEW.veterinarianUserId AND date(a.date)=date(NEW.date) AND a.startTime<NEW.endTime AND NEW.startTime<a.endTime) BEGIN SELECT RAISE(ABORT,'availability overlap'); END",
+    "CREATE TRIGGER sitting_overlap_INSERT BEFORE INSERT ON pet_sitting_requests WHEN NEW.status IN ('ACCEPTED','IN_PROGRESS') AND EXISTS(SELECT 1 FROM pet_sitting_requests r WHERE r.id<>NEW.id AND r.status IN ('ACCEPTED','IN_PROGRESS') AND (r.petSitterUserId=NEW.petSitterUserId OR r.animalId=NEW.animalId) AND julianday(r.startDate)<julianday(NEW.endDate) AND julianday(NEW.startDate)<julianday(r.endDate)) BEGIN SELECT RAISE(ABORT,'sitting overlap'); END",
+    "CREATE TRIGGER review_owner_INSERT BEFORE INSERT ON reviews WHEN NOT EXISTS(SELECT 1 FROM pet_sitting_requests r WHERE r.id=NEW.petSittingRequestId AND r.status='COMPLETED' AND r.ownerUserId=NEW.reviewerUserId) BEGIN SELECT RAISE(ABORT,'review requires completed owned request'); END",
+    "CREATE TRIGGER slots_overlap_UPDATE BEFORE UPDATE ON veterinarian_availabilities WHEN EXISTS(SELECT 1 FROM veterinarian_availabilities a WHERE a.id<>NEW.id AND a.veterinarianUserId=NEW.veterinarianUserId AND date(a.date)=date(NEW.date) AND a.startTime<NEW.endTime AND NEW.startTime<a.endTime) BEGIN SELECT RAISE(ABORT,'availability overlap'); END",
+    "CREATE TRIGGER sitting_overlap_UPDATE BEFORE UPDATE ON pet_sitting_requests WHEN NEW.status IN ('ACCEPTED','IN_PROGRESS') AND EXISTS(SELECT 1 FROM pet_sitting_requests r WHERE r.id<>NEW.id AND r.status IN ('ACCEPTED','IN_PROGRESS') AND (r.petSitterUserId=NEW.petSitterUserId OR r.animalId=NEW.animalId) AND julianday(r.startDate)<julianday(NEW.endDate) AND julianday(NEW.startDate)<julianday(r.endDate)) BEGIN SELECT RAISE(ABORT,'sitting overlap'); END",
+    "CREATE TRIGGER review_owner_UPDATE BEFORE UPDATE ON reviews WHEN NOT EXISTS(SELECT 1 FROM pet_sitting_requests r WHERE r.id=NEW.petSittingRequestId AND r.status='COMPLETED' AND r.ownerUserId=NEW.reviewerUserId) BEGIN SELECT RAISE(ABORT,'review requires completed owned request'); END",
+  ];
+}

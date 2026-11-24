@@ -1,0 +1,12 @@
+{
+  "checkedDate": "2026-11-10",
+  "runtime": "Python urllib, diagnostic indépendant ; pas une validation Flutter/UI",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "method": "GET",
+  "latitude": 36.8,
+  "longitude": 10.18,
+  "radiusMetres": 5000,
+  "httpStatus": 200,
+  "elementsCount": 4,
+  "exampleNameObserved": "Clinique Vétérinaire Carnoy"
+}

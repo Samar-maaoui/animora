@@ -1,0 +1,1 @@
+String authEnvironmentDiagnostic() => 'platform=native';

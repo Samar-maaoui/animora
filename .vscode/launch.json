@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Animora (clés + comptes démo)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define-from-file=config/api-keys.json",
+        "--dart-define=ANIMORA_DEMO_SEED=true"
+      ]
+    },
+    {
+      "name": "Animora (clés seulement)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define-from-file=config/api-keys.json"]
+    }
+  ]
+}

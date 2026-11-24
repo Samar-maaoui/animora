@@ -1,0 +1,153 @@
+{
+  "source": "Base fictive produite par les tests Flutter SQLite FFI",
+  "verification": "Connexion SQLite indépendante en lecture seule via Python sqlite3",
+  "sqliteVersion": "3.53.1",
+  "schemaVersion": 2,
+  "foreignKeysEnabled": 1,
+  "foreignKeyViolations": [],
+  "integrity": "ok",
+  "counts": {
+    "users": 7,
+    "animals": 8,
+    "favorites": 1,
+    "adoption_questionnaires": 1,
+    "adoptions": 1,
+    "adoption_contracts": 1,
+    "adoption_followups": 1,
+    "foster_placements": 1,
+    "database_metadata": 3
+  },
+  "relations": {
+    "users": [],
+    "animals": [],
+    "favorites": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "animals",
+        "from": "animalId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "users",
+        "from": "userId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "adoption_questionnaires": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "adoptions",
+        "from": "adoptionId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "adoptions": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "animals",
+        "from": "animalId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "RESTRICT",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "users",
+        "from": "userId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "RESTRICT",
+        "match": "NONE"
+      }
+    ],
+    "adoption_contracts": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "adoptions",
+        "from": "adoptionId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "adoption_followups": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "adoptions",
+        "from": "adoptionId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "foster_placements": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "users",
+        "from": "fosterFamilyUserId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "RESTRICT",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "animals",
+        "from": "animalId",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "RESTRICT",
+        "match": "NONE"
+      }
+    ],
+    "database_metadata": []
+  },
+  "userColumns": [
+    "id",
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+    "photo",
+    "city",
+    "profile",
+    "status",
+    "createdAt"
+  ],
+  "migration": [
+    {
+      "key": "animal_next_id",
+      "value": "9"
+    },
+    {
+      "key": "workflow_next_id",
+      "value": "6"
+    },
+    {
+      "key": "catalog_preferences_v1",
+      "value": "{\"source\":\"preferences\",\"counts\":{\"users\":7,\"animals\":8,\"favorites\":1,\"adoptions\":1,\"adoption_questionnaires\":1,\"adoption_contracts\":1,\"adoption_followups\":1,\"foster_placements\":1}}"
+    }
+  ]
+}

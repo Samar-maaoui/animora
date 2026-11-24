@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Sécurité : aucun script externe, images limitées à DiceBear. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://api.dicebear.com; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F7941D">
+  <title>Carte de membre Animora — démonstration</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="card.css">
+</head>
+<body>
+  <header class="top">
+    <img src="logo.png" alt="Animora" class="logo">
+  </header>
+
+  <main>
+    <p class="demo" role="note">Carte de membre Animora — démonstration</p>
+
+    <article id="card" class="card" hidden aria-live="polite">
+      <div class="card-head">
+        <span class="brand">🐾 Animora</span>
+        <span class="kind">CARTE DE MEMBRE</span>
+      </div>
+      <div class="identity">
+        <div class="avatar-ring">
+          <img id="avatar" class="avatar" alt="" hidden>
+          <span id="initials" class="initials"></span>
+        </div>
+        <div>
+          <h1 id="name"></h1>
+          <span id="profile" class="badge"></span>
+        </div>
+      </div>
+      <dl class="fields">
+        <div><dt>Membre depuis</dt><dd id="joined"></dd></div>
+        <div><dt>N° membre</dt><dd id="number"></dd></div>
+        <div><dt>Statut</dt><dd id="status"></dd></div>
+        <div id="city-row"><dt>Ville</dt><dd id="city"></dd></div>
+      </dl>
+    </article>
+
+    <section id="error" class="error" hidden>
+      <h1>Aucune carte à afficher</h1>
+      <p id="error-text">Scannez le QR code d’une carte de membre depuis l’application Animora.</p>
+    </section>
+
+    <p class="notice">
+      Les informations affichées proviennent uniquement du QR code (partie après « # »
+      de l’adresse) : elles ne sont jamais envoyées à un serveur. Sans serveur,
+      cette page ne peut pas prouver l’authenticité de la carte.
+    </p>
+  </main>
+
+  <script src="card.js"></script>
+</body>
+</html>

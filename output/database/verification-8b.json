@@ -1,0 +1,768 @@
+{
+  "user_version": 6,
+  "integrity_check": [
+    [
+      "ok"
+    ]
+  ],
+  "foreign_key_check": [],
+  "counts": {
+    "adoption_contracts": 1,
+    "adoption_followups": 1,
+    "adoption_questionnaires": 1,
+    "adoptions": 1,
+    "animal_care": 1,
+    "animals": 8,
+    "announcements": 2,
+    "claims": 1,
+    "database_metadata": 11,
+    "donation_campaigns": 1,
+    "donation_receipts": 2,
+    "donations": 2,
+    "event_activities": 1,
+    "event_registrations": 1,
+    "event_reports": 1,
+    "event_tickets": 1,
+    "events": 1,
+    "favorites": 1,
+    "foster_placements": 1,
+    "health_reminders": 1,
+    "matches": 1,
+    "material_donations": 1,
+    "material_needs": 1,
+    "pet_sitter_settings": 1,
+    "pet_sitting_requests": 1,
+    "pet_sitting_updates": 1,
+    "recurring_donations": 1,
+    "report_confirmations": 1,
+    "reports": 1,
+    "reunion_stories": 1,
+    "reviews": 1,
+    "search_zones": 1,
+    "testimonies": 1,
+    "transparency_reports": 1,
+    "users": 7,
+    "vaccinations": 1,
+    "veterinarian_availabilities": 1,
+    "veterinary_appointments": 1,
+    "volunteer_tasks": 1
+  },
+  "foreign_keys": {
+    "adoption_contracts": [
+      [
+        0,
+        0,
+        "adoptions",
+        "adoptionId",
+        "id",
+        "NO ACTION",
+        "CASCADE",
+        "NONE"
+      ]
+    ],
+    "adoption_followups": [
+      [
+        0,
+        0,
+        "adoptions",
+        "adoptionId",
+        "id",
+        "NO ACTION",
+        "CASCADE",
+        "NONE"
+      ]
+    ],
+    "adoption_questionnaires": [
+      [
+        0,
+        0,
+        "adoptions",
+        "adoptionId",
+        "id",
+        "NO ACTION",
+        "CASCADE",
+        "NONE"
+      ]
+    ],
+    "adoptions": [
+      [
+        0,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "animal_care": [
+      [
+        0,
+        0,
+        "users",
+        "veterinarianUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "animals": [],
+    "announcements": [
+      [
+        0,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "claims": [
+      [
+        0,
+        0,
+        "users",
+        "claimantUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "announcements",
+        "announcementId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "database_metadata": [],
+    "donation_campaigns": [],
+    "donation_receipts": [
+      [
+        0,
+        0,
+        "donations",
+        "donationId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "donations": [
+      [
+        0,
+        0,
+        "recurring_donations",
+        "recurringDonationId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "donation_campaigns",
+        "campaignId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        2,
+        0,
+        "users",
+        "donorUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "event_activities": [
+      [
+        0,
+        0,
+        "events",
+        "eventId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "event_registrations": [
+      [
+        0,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "events",
+        "eventId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "event_reports": [
+      [
+        0,
+        0,
+        "events",
+        "eventId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "event_tickets": [
+      [
+        0,
+        0,
+        "event_registrations",
+        "registrationId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "events": [
+      [
+        0,
+        0,
+        "users",
+        "organizerUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "favorites": [
+      [
+        0,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "CASCADE",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "CASCADE",
+        "NONE"
+      ]
+    ],
+    "foster_placements": [
+      [
+        0,
+        0,
+        "users",
+        "fosterFamilyUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "health_reminders": [
+      [
+        0,
+        0,
+        "users",
+        "authorUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "vaccinations",
+        "vaccinationId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        2,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "matches": [
+      [
+        0,
+        0,
+        "announcements",
+        "foundAnnouncementId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "announcements",
+        "lostAnnouncementId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "material_donations": [
+      [
+        0,
+        0,
+        "material_needs",
+        "materialNeedId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "donations",
+        "donationId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "material_needs": [
+      [
+        0,
+        0,
+        "donation_campaigns",
+        "campaignId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "pet_sitter_settings": [
+      [
+        0,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "pet_sitting_requests": [
+      [
+        0,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "users",
+        "petSitterUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        2,
+        0,
+        "users",
+        "ownerUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "pet_sitting_updates": [
+      [
+        0,
+        0,
+        "pet_sitting_requests",
+        "petSittingRequestId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "recurring_donations": [
+      [
+        0,
+        0,
+        "donation_campaigns",
+        "campaignId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "users",
+        "donorUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "report_confirmations": [
+      [
+        0,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "reports",
+        "reportId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "reports": [
+      [
+        0,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "reunion_stories": [
+      [
+        0,
+        0,
+        "users",
+        "authorUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "announcements",
+        "announcementId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "reviews": [
+      [
+        0,
+        0,
+        "users",
+        "reviewerUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "pet_sitting_requests",
+        "petSittingRequestId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "search_zones": [
+      [
+        0,
+        0,
+        "announcements",
+        "announcementId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "testimonies": [
+      [
+        0,
+        0,
+        "users",
+        "userId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "announcements",
+        "announcementId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "transparency_reports": [
+      [
+        0,
+        0,
+        "donation_campaigns",
+        "campaignId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "users": [],
+    "vaccinations": [
+      [
+        0,
+        0,
+        "users",
+        "veterinarianUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "veterinarian_availabilities": [
+      [
+        0,
+        0,
+        "users",
+        "veterinarianUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "veterinary_appointments": [
+      [
+        0,
+        0,
+        "veterinarian_availabilities",
+        "availabilityLinkId",
+        "id",
+        "NO ACTION",
+        "SET NULL",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "animals",
+        "animalId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        2,
+        0,
+        "users",
+        "clientUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        3,
+        0,
+        "users",
+        "veterinarianUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ],
+    "volunteer_tasks": [
+      [
+        0,
+        0,
+        "users",
+        "assignedUserId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ],
+      [
+        1,
+        0,
+        "events",
+        "eventId",
+        "id",
+        "NO ACTION",
+        "RESTRICT",
+        "NONE"
+      ]
+    ]
+  },
+  "markers": [
+    [
+      "animal_next_id",
+      "9"
+    ],
+    [
+      "care_services_next_id",
+      "10"
+    ],
+    [
+      "catalog_preferences_v1",
+      "{\"source\":\"preferences\",\"counts\":{\"users\":7,\"animals\":8,\"favorites\":1,\"adoptions\":1,\"adoption_questionnaires\":1,\"adoption_contracts\":1,\"adoption_followups\":1,\"foster_placements\":1}}"
+    ],
+    [
+      "donations_next_id",
+      "10"
+    ],
+    [
+      "events_next_id",
+      "7"
+    ],
+    [
+      "reports_next_id",
+      "10"
+    ],
+    [
+      "sembast_care_services_v1",
+      "{\"counts\":{\"veterinarian_availabilities\":1,\"veterinary_appointments\":1,\"vaccinations\":1,\"animal_care\":1,\"health_reminders\":1,\"pet_sitter_settings\":1,\"pet_sitting_requests\":1,\"pet_sitting_updates\":1,\"reviews\":1}}"
+    ],
+    [
+      "sembast_donations_v1",
+      "{\"counts\":{\"donation_campaigns\":1,\"recurring_donations\":1,\"material_needs\":1,\"donations\":2,\"material_donations\":1,\"donation_receipts\":2,\"transparency_reports\":1}}"
+    ],
+    [
+      "sembast_events_v1",
+      "{\"counts\":{\"events\":1,\"event_registrations\":1,\"event_tickets\":1,\"event_activities\":1,\"volunteer_tasks\":1,\"event_reports\":1}}"
+    ],
+    [
+      "sembast_reports_v1",
+      "{\"counts\":{\"reports\":1,\"report_confirmations\":1,\"announcements\":2,\"testimonies\":1,\"search_zones\":1,\"matches\":1,\"claims\":1,\"reunion_stories\":1}}"
+    ],
+    [
+      "workflow_next_id",
+      "6"
+    ]
+  ],
+  "money_storage": [
+    [
+      12345,
+      "integer"
+    ]
+  ]
+}

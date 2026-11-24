@@ -1,0 +1,46 @@
+{
+  "checkedAtUtc": "2026-11-10T15:31:58.794535Z",
+  "usesRealHttp": true,
+  "REST Countries": {
+    "status": "configuration_required",
+    "error": "REST Countries nécessite une clé de développement. La saisie manuelle reste disponible."
+  },
+  "The Dog API": {
+    "status": "configuration_required",
+    "error": "Clé The Dog API absente. Conservez la saisie manuelle de la race."
+  },
+  "The Cat API": {
+    "status": "configuration_required",
+    "error": "Clé The Cat API absente. Conservez la saisie manuelle de la race."
+  },
+  "Nominatim": {
+    "status": "success",
+    "summary": {
+      "city": "Tunis",
+      "area": "Gouvernorat Tunis, Tunisie"
+    }
+  },
+  "Overpass": {
+    "status": "failed",
+    "error": "Délai dépassé. Réessayez.",
+    "endpoint": "https://overpass.private.coffee/api/interpreter",
+    "method": "GET"
+  },
+  "ExchangeRate-API": {
+    "status": "success",
+    "summary": {
+      "EUR": 0.297773,
+      "USD": 0.33335,
+      "updatedAt": "2026-11-10T00:02:31.000Z"
+    }
+  },
+  "Open-Meteo": {
+    "status": "success",
+    "summary": {
+      "date": "2026-11-10",
+      "minimum": 18.2,
+      "maximum": 29.1,
+      "timezone": "Africa/Tunis"
+    }
+  }
+}
